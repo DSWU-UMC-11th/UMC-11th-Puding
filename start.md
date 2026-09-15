@@ -5,7 +5,7 @@ PR을 올리기 전에 아래 컨벤션을 한 번 확인해 주세요.
 
 기준: [Notion Git-Hub 가이드](https://app.notion.com/p/Git-Hub-3dc5056fdfa9806494d0c96ba2e136cc)
 
-제출 방식은 조직 저장소 안의 개인 브랜치를 사용하는 현재 운영 방식에 맞춥니다.
+현재 운영 방식에 따라 조직 저장소의 개인 브랜치로 제출하며, 주차 폴더는 저장소 루트에 둡니다.
 
 ## 폴더 구조
 
@@ -13,35 +13,25 @@ PR을 올리기 전에 아래 컨벤션을 한 번 확인해 주세요.
 MY_Work/
 └── Puding/                  # 로컬 Git 저장소 루트
     ├── start.md
-    └── Puding/              # 저장소 안의 닉네임 폴더
-        ├── week00/
-        │   └── .gitkeep
-        ├── week01/
-        │   └── .gitkeep
-        ├── week02/
-        │   └── .gitkeep
-        ├── week03/
-        │   └── .gitkeep
-        ├── week04/
-        │   └── .gitkeep
-        ├── week05/
-        │   └── .gitkeep
-        ├── week06/
-        │   └── .gitkeep
-        ├── week07/
-        │   └── .gitkeep
-        ├── week08/
-        │   └── .gitkeep
-        ├── week09/
-        │   └── .gitkeep
-        └── week10/
-            └── .gitkeep
+    ├── week00/
+    │   └── .gitkeep
+    ├── week01/
+    │   └── .gitkeep
+    ├── week02/
+    │   └── .gitkeep
+    ├── week03/
+    │   └── .gitkeep
+    ├── week04/
+    │   └── .gitkeep
+    └── week05/
+        └── .gitkeep
 ```
 
-- `week00`부터 `week10`까지 총 11개 주차 폴더를 준비합니다. `.gitkeep`은 빈 폴더를 Git에 올리기 위한 자리표시자이며, 실제 미션 파일은 각 주차 폴더에 추가합니다.
-- 주차는 두 자리로 씁니다. (`week00` ~ `week10`)
-- 닉네임은 **`Puding`**이며, 폴더와 브랜치 모두 대문자 `P`를 포함한 같은 이름을 씁니다.
-- **내 폴더 안의 파일만 수정합니다.** 다른 사람 폴더나 레포 공통 파일은 건드리지 않습니다.
+- 로컬 프로젝트 폴더 `Puding`이 저장소 루트이며, 바로 아래에 `week00`부터 `week05`까지 6개 주차 폴더를 둡니다.
+- `.gitkeep`은 빈 폴더를 Git에 올리기 위한 자리표시자이며, 실제 미션 파일은 각 주차 폴더에 추가합니다.
+- 주차는 두 자리 `weekNN` 형식으로 씁니다. 이후 필요한 주차 폴더도 저장소 루트에 추가합니다.
+- 닉네임과 작업 브랜치는 대문자 `P`를 포함한 **`Puding`**입니다.
+- **해당 주차 폴더 안의 미션 파일을 수정합니다.** 다른 사람의 작업이나 레포 공통 파일은 임의로 변경하지 않습니다.
 - 이전 주차 코드를 이어서 쓸 때는 새 주차 폴더로 복사하는 커밋을 따로 만듭니다.
   - 예: `CHORE: 0주차 Front 프로젝트를 1주차로 복사`
 
@@ -87,15 +77,15 @@ git branch -r
 
 ### 주차별 작업
 
-진행 중인 작업을 먼저 커밋하거나 따로 보관합니다. `Puding` 브랜치에서 `main`의 최신 변경을 반영한 뒤 내 닉네임 폴더 안에 미션 파일을 작성합니다. 아래는 1주차 예시입니다.
+진행 중인 작업을 먼저 커밋하거나 따로 보관합니다. `Puding` 브랜치에서 `main`의 최신 변경을 반영한 뒤 저장소 루트의 해당 주차 폴더 안에 미션 파일을 작성합니다. 아래 명령은 저장소 루트에서 실행하는 1주차 예시입니다.
 
 ```bash
 git switch Puding
 git fetch origin
 git merge origin/main
 
-# Puding/week01/ 안에서 미션을 작성한 뒤 실행
-git add Puding/week01/
+# week01/ 안에서 미션을 작성한 뒤 실행
+git add week01/
 git diff --cached
 git commit -m "FEAT: 1주차 미션 구현"
 git push -u origin Puding
