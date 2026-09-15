@@ -15,13 +15,30 @@ MY_Work/
     ├── start.md
     └── Puding/              # 저장소 안의 닉네임 폴더
         ├── week00/
-        │   └── 미션 파일
+        │   └── .gitkeep
         ├── week01/
-        │   └── 미션 파일
+        │   └── .gitkeep
+        ├── week02/
+        │   └── .gitkeep
+        ├── week03/
+        │   └── .gitkeep
+        ├── week04/
+        │   └── .gitkeep
+        ├── week05/
+        │   └── .gitkeep
+        ├── week06/
+        │   └── .gitkeep
+        ├── week07/
+        │   └── .gitkeep
+        ├── week08/
+        │   └── .gitkeep
+        ├── week09/
+        │   └── .gitkeep
         └── week10/
-            └── 미션 파일
+            └── .gitkeep
 ```
 
+- `week00`부터 `week10`까지 총 11개 주차 폴더를 준비합니다. `.gitkeep`은 빈 폴더를 Git에 올리기 위한 자리표시자이며, 실제 미션 파일은 각 주차 폴더에 추가합니다.
 - 주차는 두 자리로 씁니다. (`week00` ~ `week10`)
 - 닉네임은 **`Puding`**이며, 폴더와 브랜치 모두 대문자 `P`를 포함한 같은 이름을 씁니다.
 - **내 폴더 안의 파일만 수정합니다.** 다른 사람 폴더나 레포 공통 파일은 건드리지 않습니다.
