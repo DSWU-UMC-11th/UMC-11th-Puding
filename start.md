@@ -5,6 +5,8 @@ PR을 올리기 전에 아래 컨벤션을 한 번 확인해 주세요.
 
 기준: [Notion Git-Hub 가이드](https://app.notion.com/p/Git-Hub-3dc5056fdfa9806494d0c96ba2e136cc)
 
+제출 방식은 조직 저장소 안의 개인 브랜치를 사용하는 현재 운영 방식에 맞춥니다.
+
 ## 폴더 구조
 
 ```
@@ -28,33 +30,52 @@ MY_Work/
 
 ## 저장소와 브랜치
 
-- 조직 원본 저장소: `DSWU-UMC-11th/UMC-11th-Puding`
-- 조직 원본을 개인 GitHub 계정으로 **fork**한 뒤, 개인 fork에서 작업합니다.
-- 로컬 원격 이름은 **`origin` = 개인 fork**, **`upstream` = 조직 원본**으로 구분합니다.
-- 작업 브랜치는 **`Puding`**입니다. 개인 fork의 `Puding` 브랜치에만 push합니다.
-- **조직 원본 저장소와 `main` 브랜치에 직접 push하지 않습니다.**
+- 조직 저장소: `DSWU-UMC-11th/UMC-11th-Puding`
+- **`origin`은 조직 저장소** `https://github.com/DSWU-UMC-11th/UMC-11th-Puding.git`을 가리킵니다.
+- 작업 브랜치는 **`Puding`**입니다. 조직 저장소의 `Puding` 브랜치에 push합니다.
+- **`main`에는 직접 push하지 않고, 같은 저장소의 `main`을 대상으로 PR을 만듭니다.**
 
 ### 최초 설정
 
-아래 흐름은 조직 원본에 README와 `main`이 이미 있고, 개인 fork를 새로 clone한 경우의 예시입니다. 명령은 clone한 저장소 루트에서 실행합니다.
+조직 저장소에는 README와 `main`이 준비되어 있습니다. 새 환경에서는 작업 폴더에서 아래 명령으로 clone합니다. 이미 clone했다면 이 단계는 생략하고 저장소 루트에서 다음 단계부터 진행합니다.
 
 ```bash
-git remote add upstream https://github.com/DSWU-UMC-11th/UMC-11th-Puding.git
-git switch -c Puding
+git clone https://github.com/DSWU-UMC-11th/UMC-11th-Puding.git Puding
+cd Puding
 ```
 
-이미 로컬 저장소가 있다면 먼저 `git remote -v`로 연결을 확인하고, 위 역할에 맞게 원격을 설정합니다. `Puding` 브랜치가 이미 있으면 `git switch Puding`으로 이동합니다.
+먼저 원격 연결과 브랜치를 확인합니다. `origin`의 주소가 위 조직 저장소인지 확인합니다.
 
-**원본이 비어 있는 경우:** `main`이 없어 pull할 수 없으므로, 운영진이 원본에 첫 커밋과 `main`을 만든 뒤 fork와 기준 브랜치를 맞춥니다. 로컬 브랜치 이름만 바꾸어서는 해결되지 않습니다.
+```bash
+git remote -v
+git fetch origin
+git branch -r
+```
+
+로컬에 `Puding` 브랜치가 없다면 원격 상태에 따라 **아래 둘 중 하나만** 실행합니다.
+
+- 원격에 `origin/Puding`이 없으면 최신 `origin/main`에서 새 작업 브랜치를 만듭니다. 원격 추적 대상은 첫 push의 `-u` 옵션으로 `origin/Puding`에 연결합니다.
+
+  ```bash
+  git switch --no-track -c Puding origin/main
+  ```
+
+- 원격에 `origin/Puding`이 이미 있으면 그 브랜치를 가져와 추적합니다.
+
+  ```bash
+  git switch --track -c Puding origin/Puding
+  ```
+
+로컬에 `Puding` 브랜치가 이미 있으면 `git switch Puding`으로 이동합니다.
 
 ### 주차별 작업
 
-진행 중인 작업을 먼저 커밋하거나 따로 보관합니다. `Puding` 브랜치에서 원본의 최신 변경을 반영한 뒤 내 닉네임 폴더 안에 미션 파일을 작성합니다. 아래는 1주차 예시입니다.
+진행 중인 작업을 먼저 커밋하거나 따로 보관합니다. `Puding` 브랜치에서 `main`의 최신 변경을 반영한 뒤 내 닉네임 폴더 안에 미션 파일을 작성합니다. 아래는 1주차 예시입니다.
 
 ```bash
 git switch Puding
-git fetch upstream
-git merge upstream/main
+git fetch origin
+git merge origin/main
 
 # Puding/week01/ 안에서 미션을 작성한 뒤 실행
 git add Puding/week01/
@@ -63,7 +84,7 @@ git commit -m "FEAT: 1주차 미션 구현"
 git push -u origin Puding
 ```
 
-원본 변경을 반영할 때 충돌이 생기면 해결한 뒤 진행합니다.
+`main`의 변경을 반영할 때 충돌이 생기면 해결한 뒤 진행합니다.
 
 ## 커밋 메시지
 
@@ -91,8 +112,9 @@ CHORE: Front 프로젝트 생성
 
 ## Pull Request
 
-- **base 저장소 / 브랜치:** 조직 원본 `DSWU-UMC-11th/UMC-11th-Puding` / `main`
-- **head 저장소 / compare 브랜치:** 개인 fork / `Puding`
+- **저장소:** base와 head 모두 조직 저장소 `DSWU-UMC-11th/UMC-11th-Puding`
+- **base 브랜치:** `main`
+- **compare 브랜치:** `Puding`
 - **제목:** `N주차미션_닉네임`
   - 1주차 예시: `1주차미션_Puding`
 - 본문에는 이번 주차의 작업 내용을 간단히 설명합니다.
