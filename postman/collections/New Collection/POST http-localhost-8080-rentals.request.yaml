@@ -1,0 +1,9 @@
+$kind: http-request
+name: POST http://localhost:8080/rentals
+description: ""
+url: http://localhost:8080/rentals
+method: POST
+body:
+  type: json
+  content: '{"userId":1,"bookId":1}'
+order: 1790855561368
